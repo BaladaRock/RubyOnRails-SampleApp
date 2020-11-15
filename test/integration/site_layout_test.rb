@@ -12,9 +12,14 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", contact_path
   end
 
-  test "full_title completeness" do
+  test "full_title contact" do
     get contact_path
     assert_select "title", full_title("Contact")
+  end
+
+  test "full_title signup" do
+    get signup_path
+    assert_select "title", full_title("Sign up")
   end
 
 end
