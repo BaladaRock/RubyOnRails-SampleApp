@@ -13,7 +13,9 @@ gem 'bootsnap',    '1.4.5', require: false
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'byebug'
 end
+
 group :production do
   gem 'pg'
 end
