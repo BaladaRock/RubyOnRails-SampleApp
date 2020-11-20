@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    byebug
+    #also works with 'byebug' command
+    #debugger - used with gem byebug, to initiate debug mode
   end
 
   def new
