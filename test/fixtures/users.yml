@@ -1,2 +1,5 @@
-# empty
 
+night_bot:
+  name: NightBot
+  email: example@railstutorial.org
+  password_digest: <%= User.digest('password') %>
