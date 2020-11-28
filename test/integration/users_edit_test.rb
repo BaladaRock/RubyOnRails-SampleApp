@@ -7,6 +7,9 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "edit user with invalid data" do
+    # Log in user
+    log_in_as(@user)
+
     # Send request to 'edit_user_path'
     get edit_user_path(@user)
 
@@ -31,6 +34,9 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     name = "Eusebiu"
     email = "example@valid.com"
 
+    # Log in user
+    log_in_as(@user)
+    
     # Send request to 'edit_user_path'
     get edit_user_path(@user)
 
