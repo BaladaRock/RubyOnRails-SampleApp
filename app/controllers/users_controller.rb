@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
 
-  #before filter for edit and update pages
-  before_action :logged_in_user, only: [:edit, :update]
-
-  #before filter for assuring correct user
+  #before filter for restricting access to protected pages
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
+
+  def index
+    @users = User.all
+  end
 
   def show
     @user = User.find(params[:id])
