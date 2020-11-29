@@ -29,19 +29,22 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select "div.alert", text: "The form contains 4 errors ."
   end
 
-  test "edit user with valid data" do
+  test "successful edit with friendly forwarding" do
     #initialize new email and name values
     name = "Eusebiu"
     email = "example@valid.com"
 
-    # Log in user
-    log_in_as(@user)
-    
     # Send request to 'edit_user_path'
     get edit_user_path(@user)
 
-    # Should receive correct template
-    assert_template 'users/edit'
+    # Check session to assure that user's request has been stored
+    assert_not_nil session[:forwarding_url]
+
+    # Log in user
+    log_in_as(@user)
+
+    # Should redirect to user edit page
+    assert_redirected_to edit_user_path(@user)
 
     # Patch request should contain [:params] with valid values
     # and empty password fields
@@ -55,6 +58,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
     # Should be redirected to user profile page
     assert_redirected_to @user
+
+    # Recheck session to assure that user's
+    # forwarding request has been deleted
+    assert_nil session[:forwarding_url]
 
     # Reload user from db and check its attributes
     @user.reload
