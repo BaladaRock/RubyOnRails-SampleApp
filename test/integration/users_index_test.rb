@@ -26,7 +26,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_select 'div.pagination', count: 2
     
     # Get the first page of users and check that 'delete' option
-    # is available for every non-admin ones
+    # is available for every non-admin user
     first_page_of_users = User.paginate(page: 1)
     first_page_of_users.each do |user|
       assert_select 'a[href=?]', user_path(user), text: user.name
