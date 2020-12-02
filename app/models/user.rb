@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
    
   # before callbacks for presetting some user attributes
@@ -45,7 +46,7 @@ class User < ApplicationRecord
 
     # Converts email to all lower-case.
     def downcase_email
-      self.email = email.downcase
+      email.downcase!
     end
    
     # Creates and assigns the activation token and digest.
