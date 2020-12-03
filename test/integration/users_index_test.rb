@@ -10,6 +10,9 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   test "index as admin including pagination and delete links" do
     # Login user
     log_in_as @admin
+    
+    # Make the first user non-activated
+    User.paginate(page: 1).first.toggle!(:activated)
 
     # Send request for users list page
     get users_path
@@ -17,18 +20,14 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     # Should receive 'all users' template
     assert_template 'users/index'
 
-    # Check the elements of the pagination
-    User.paginate(page: 1).each do |user|
-      assert_select "a[href=?]", user_path(user), text: user.name
-    end  
-
     # Assure that both of the paginations are displayed
     assert_select 'div.pagination', count: 2
     
-    # Get the first page of users and check that 'delete' option
+    # Get users pages and check that 'delete' option
     # is available for every non-admin user
-    first_page_of_users = User.paginate(page: 1)
-    first_page_of_users.each do |user|
+    # Also, check that previous deactivated user does not appear
+    assigns(:users).each do |user|
+      assert user.activated?
       assert_select 'a[href=?]', user_path(user), text: user.name
       unless user == @admin
         assert_select 'a[href=?]', user_path(user), text: 'delete'
