@@ -60,21 +60,20 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "sample_app_production"
 
-  config.action_mailer.delivery_method = :smtp
-
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_caching = false
 
   config.action_mailer.raise_delivery_errors = true
-
-  config.action_mailer.default_url_options = { :host => 'myapp.herokuapp.com', :protocol => 'http' }
-
-  config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV['andreidaian05@gmail.com'],
-    password:             ENV['pontifusmaximus1234'],
-    authentication:       'plain'
+  config.action_mailer.delivery_method = :smtp
+  host = 'https://still-beyond-10331.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
