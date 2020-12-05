@@ -28,7 +28,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Use this to allow sending mails in dev env(it also overrides test.rb)
   config.action_mailer.delivery_method = :test
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
