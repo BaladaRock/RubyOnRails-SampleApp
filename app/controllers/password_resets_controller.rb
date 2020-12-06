@@ -23,9 +23,8 @@ class PasswordResetsController < ApplicationController
   end
   
   def update
-
     # Treat case when form fields are submitted as empty
-    if params[ :user][ :password].empty?            
+    if params[:user][:password].empty?            
       @user.errors.add(:password, "Password can't be empty.")
       render 'edit'
 
