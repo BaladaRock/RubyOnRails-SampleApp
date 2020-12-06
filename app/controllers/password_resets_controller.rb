@@ -24,11 +24,16 @@ class PasswordResetsController < ApplicationController
   end
   
   def update
+
+    # Treat case when form fields are submitted as empty
     if params[ :user][ :password].empty?            
       @user.errors.add(:password, "Password can't be empty.")
       render 'edit'
+
+    # force 'password' and 'confirm' fields to be filled in
     elsif @user.update(user_params)                 
       log_in @user
+      @user.update_attribute(:reset_digest, nil)
       flash[:success] = "Password has been reset."
       redirect_to @user
     else
@@ -38,7 +43,7 @@ class PasswordResetsController < ApplicationController
 
   private
 
-  # force password and confirm fields to be filled in
+ 
   def user_params
     params.require( :user).permit( :password, :password_confirmation)
   end
