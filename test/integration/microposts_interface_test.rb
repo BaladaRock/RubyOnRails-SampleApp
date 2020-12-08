@@ -13,6 +13,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
     # Check for micropost pagination
     assert_select 'div.pagination'
+    
+    # Check for 'file tag'
+    assert_select 'input[type=file]'
 
     # Try to make an invalid micropost submission
     assert_no_difference 'Micropost.count' do
@@ -25,9 +28,14 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
     # Make a valid submission
     content = "Lorem ipsum est"
+    image = fixture_file_upload('test/fixtures/kitten.jpg', 'image/jpeg'    )
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content } }
+      post microposts_path, params: { micropost:
+                                    { content: content, image: image } }
     end
+
+    # Check for a valid image attribute inside the micropost
+    assert assigns(:micropost).image.attached?
 
     # 'Home' page should be rendered again and the newly
     # created micropost should appear inside HTML page
