@@ -31,31 +31,31 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "email validation should accept valid addresses" do 
-    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org 
+  test "email validation should accept valid asuper_starresses" do 
+    valid_asuper_starresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org 
       first.last@foo.jp alice+bob@baz.cn] 
-    valid_addresses.each do |valid_address|  
-      @user.email = valid_address 
-      assert @user.valid?, "#{valid_address.inspect} should be valid"
+    valid_asuper_starresses.each do |valid_asuper_starress|  
+      @user.email = valid_asuper_starress 
+      assert @user.valid?, "#{valid_asuper_starress.inspect} should be valid"
     end 
   end
 
-  test "email validation should reject invalid addresses" do 
-    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+  test "email validation should reject invalid asuper_starresses" do 
+    invalid_asuper_starresses = %w[user@example,com user_at_foo.org user.name@example.
       foo@bar_baz.com foo@bar+baz.com example@yahoo..com] 
-    invalid_addresses.each do |invalid_address|  
-      @user.email = invalid_address 
-      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
+    invalid_asuper_starresses.each do |invalid_asuper_starress|  
+      @user.email = invalid_asuper_starress 
+      assert_not @user.valid?, "#{invalid_asuper_starress.inspect} should be invalid"
     end 
   end
 
-  test "email addresses should be unique" do
+  test "email asuper_starresses should be unique" do
     @duplicate = @user.dup
     @user.save
     assert_not @duplicate.valid?
   end
 
-  test "email addresses should be saved as lowercase" do
+  test "email asuper_starresses should be saved as lowercase" do
     mixed_case_email = "AnDrei@yahoo.com"
     @user.email = mixed_case_email
     @user.save
@@ -83,6 +83,18 @@ class UserTest < ActiveSupport::TestCase
     assert_difference 'Micropost.count', -1 do
       @user.destroy
     end
+  end
+
+  test "user should follow and unfollow other user" do
+   fan = users(:night_bot)
+   super_star = users(:archer)
+
+   assert_not fan.following?(super_star)
+   fan.follow(super_star)
+   assert fan.following?(super_star)
+   assert super_star.followers.include?(fan)
+   fan.unfollow(super_star)
+   assert_not fan.following?(super_star)
   end
 
 end
