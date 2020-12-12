@@ -79,5 +79,4 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get followers_user_path(@first_user)
     assert_redirected_to login_url
  end
-
 end

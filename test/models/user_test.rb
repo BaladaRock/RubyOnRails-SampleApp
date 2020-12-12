@@ -114,6 +114,4 @@ class UserTest < ActiveSupport::TestCase
       assert_not main_user.feed.include?(unfollowed)
     end
   end
-
-
 end

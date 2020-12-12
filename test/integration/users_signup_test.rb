@@ -16,7 +16,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          password: "foo",
                                          password_confirmation: "bar" } }
     end
-    
   end
 
   test "invalid signup view state" do
@@ -76,5 +75,4 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
     assert is_logged_in? 
   end
-  
 end
