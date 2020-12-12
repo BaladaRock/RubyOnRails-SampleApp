@@ -3,7 +3,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
    
   # before callbacks for presetting some user attributes
-  attr_accessor :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_token
   before_save   :downcase_email
   before_create :create_activation_digest
   
