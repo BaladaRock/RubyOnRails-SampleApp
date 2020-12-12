@@ -4,7 +4,6 @@ class User < ApplicationRecord
    
   # before callbacks for presetting some user attributes
   attr_accessor :remember_token, :activation_token, :reset_token
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_token
   before_save   :downcase_email
   before_create :create_activation_digest
   
