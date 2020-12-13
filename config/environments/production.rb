@@ -60,7 +60,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "sample_app_production"
 
-  config.action_mailer.default_url_options = { :host => 'intense-basin-67101.heroku.com' }  
+  config.action_mailer.default_url_options = { :host => 'https://intense-basin-67101.herokuapp.com' }  
   config.action_mailer.delivery_method = :smtp  
   config.action_mailer.perform_deliveries = true  
   config.action_mailer.raise_delivery_errors = false  
