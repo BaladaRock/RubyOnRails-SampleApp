@@ -68,11 +68,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {  
     address: "smtp.gmail.com",
     port: 587,
-    tls:  true,
-    enable_starttls_auto: true
-    domain: "https://intense-basin-67101.herokuapp.com",
+    domain: "gmail.com",
     authentication: "plain",
-    enable_starttls_auto: true,
     user_name: ENV['GMAIL_USERNAME'],
     password: ENV['GMAIL_PASSWORD']
   }
